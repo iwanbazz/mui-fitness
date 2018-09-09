@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Typography, TextField, Paper, Button, ListItem, ListItemText } from '@material-ui/core'
-import List from '@material-ui/core/List'
+import { Typography, TextField, Paper, Button, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core'
+import { Delete } from '@material-ui/icons'
 
 export default class App extends Component {
   state = {
@@ -36,37 +36,50 @@ export default class App extends Component {
       }))
     }
   }
+  handleDelete = id =>
+    this.setState(({ exercises }) => ({
+      exercises: exercises.filter(ex => ex.id !== id)
+    })
+  )
 
   render() {
     const { title, exercises } = this.state
     return (
       <Paper>
-      <form onSubmit={this.handleCreate}>
-        <Typography variant='display1' align='center' gutterBottom>
-        Exercises
-        </Typography>
-        <TextField
-          name = 'title'
-          label = 'Exercise'
-          value = {title}
-          onChange = {this.handleChange}
-          margin = 'normal'
-        />
-        <Button
-          type='submit'
-          color='primary'
-          variant='raised'
-        >
-          Create
-        </Button>
-      </form>
-      <List>
-        {exercises.map(({ id, title }) =>
-          <ListItem key={id}>
-            <ListItemText primary={title} />
-          </ListItem>
-        )}
-      </List>
+        <form onSubmit={this.handleCreate}>
+          <Typography variant='display1' align='center' gutterBottom>
+            Exercises
+          </Typography>
+          <TextField
+            name = 'title'
+            label = 'Exercise'
+            value = {title}
+            onChange = {this.handleChange}
+            margin = 'normal'
+          />
+          <Button
+            type='submit'
+            color='primary'
+            variant='raised'
+          >
+            Create
+          </Button>
+        </form>
+        <List>
+          {exercises.map(({ id, title }) =>
+            <ListItem key={id}>
+              <ListItemText primary={title} />
+              <ListItemSecondaryAction>
+                <IconButton
+                  color='primary'
+                  onClick={() => this.handleDelete(id)}
+                >
+                  <Delete />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          )}
+        </List>
       </Paper>
     )
   }
