@@ -2,12 +2,25 @@ import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles'
 import { Typography, TextField, Paper, Button, List, ListItem, ListItemText, ListItemSecondaryAction, IconButton } from '@material-ui/core'
 import { Delete } from '@material-ui/icons'
+import { createMuiTheme } from '@material-ui/core/styles'
+import { orange } from '@material-ui/core/colors'
 
-const styles = {
+const theme = createMuiTheme({ 
+  palette: {
+    primary: orange
+  }
+ }
+)
+const styles = theme => console.log(theme) || {
   root: {
     margin: 20,
     padding: 20,
     maxWidth: 400
+  },
+  form: {
+    display: 'flex',
+    alignItems: 'baseline',
+    justifyContent: 'space-evenly'
   }
 }
 export default withStyles(styles)(
